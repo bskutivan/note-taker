@@ -68,7 +68,13 @@ app.post('/api/notes', (req, res) => {
     }
 });
 
-app.delete('/api/notes', (req, res) => {
+app.delete('/api/notes:id', (req, res) => {
+
+    console.log(req.body.id);
+
+    console.log(notes);
+
+    res.send('test');
 })
 
 
