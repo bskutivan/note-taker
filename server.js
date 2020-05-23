@@ -69,22 +69,23 @@ app.post('/api/notes', (req, res) => {
 });
 
 app.delete('/api/notes/:id', (req, res) => {
-
+    // isolate id from requested note
     const id = req.params.id;
 
+    // map notes array using selected note
     notes.map((selectedItem, index) => {
         if (selectedItem.id === id) {
+            // splice new array
             notes.splice(index, 1);
             return res.json(selectedItem);
         }
     })
-
+    // write new notes array to json file
     fs.writeFileSync(
         path.join(__dirname, './db/db.json'),
         JSON.stringify({ notes : notes }, null, 2)
     )
     
-    res.send(notes);
 })
 
 
