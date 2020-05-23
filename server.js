@@ -1,6 +1,7 @@
 const express = require('express');
 const htmlRoutes = require('./routes/htmlRoutes/index');
-const apiRoutes = require('./routes/apiRoutes/index');
+const fs = require('fs');
+const path = require('path');
 
 // represent POT to any route or to 3002
 const PORT = process.env.PORT || 3002;
@@ -21,6 +22,28 @@ app.use('/', htmlRoutes);
 app.use('/notes', htmlRoutes);
 
 const { notes } = require('./db/db.json');
+
+function createNewNote (body, notesArray) {
+    const note = body;
+    notesArray.push(note);
+
+    fs.writeFileSync(
+        path.join(__dirname, './db/db.json'),
+        JSON.stringify({ notes: notesArray }, null, 2)
+    );
+
+    return note;
+};
+
+function validateNote (note) {
+    if (!note.title || typeof note.title !== 'string') {
+        return false;
+    }
+    if (!note.text || typeof note.text !== 'string') {
+        return false;
+    }
+    return true;
+};
 
 // get request to get all the notes and return as JSON
 app.get('/api/notes', (req, res) => {
@@ -43,10 +66,10 @@ app.post('/api/notes', (req, res) => {
 
         res.json(note);
     }
+});
 
+app.delete('/api/notes', (req, res) => {
 })
-
-
 
 
 
