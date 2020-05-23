@@ -23,10 +23,28 @@ app.use('/notes', htmlRoutes);
 const { notes } = require('./db/db.json');
 
 // get request to get all the notes and return as JSON
-
 app.get('/api/notes', (req, res) => {
     res.json(notes);
 });
+
+
+// post request to send new note and return updated JSON with new note.
+app.post('/api/notes', (req, res) => {
+
+    // set id based on next index of array
+    req.body.id = notes.length.toString();
+
+    // if any incorrect data, send error
+    if (!validateNote(req.body)) {
+        res.status(400).send('The note is not properly formatted. Please ensure all fields are appropriately filled out.');
+    } else {
+        // add note to json file and notes array
+        const note = createNewNote(req.body, notes);
+
+        res.json(note);
+    }
+
+})
 
 
 
