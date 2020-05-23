@@ -68,13 +68,23 @@ app.post('/api/notes', (req, res) => {
     }
 });
 
-app.delete('/api/notes:id', (req, res) => {
+app.delete('/api/notes/:id', (req, res) => {
 
-    console.log(req.body.id);
+    const id = req.params.id;
 
-    console.log(notes);
+    notes.map((selectedItem, index) => {
+        if (selectedItem.id === id) {
+            notes.splice(index, 1);
+            return res.json(selectedItem);
+        }
+    })
 
-    res.send('test');
+    fs.writeFileSync(
+        path.join(__dirname, './db/db.json'),
+        JSON.stringify({ notes : notes }, null, 2)
+    )
+    
+    res.send(notes);
 })
 
 
