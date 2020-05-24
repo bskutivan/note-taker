@@ -41,3 +41,6 @@
   [Walk-through Video]
   ## Questions
   If you have any questions about the repository, contact me directly at bskutivan@gmail.com. You can find more of my work at https://github.com/bskutivan.
+  
+  ![](https://github.com/bskutivan/note-taker/blob/master/images/screenshot1.png)
+  ![](https://github.com/bskutivan/note-taker/blob/master/images/screenshot2.png)
