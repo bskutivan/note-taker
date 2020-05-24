@@ -72,11 +72,12 @@ app.delete('/api/notes/:id', (req, res) => {
     // isolate id from requested note
     const id = req.params.id;
 
-    // map notes array using selected note
+    // map notes array using selected note and that notes index to make new array
     notes.map((selectedItem, index) => {
         if (selectedItem.id === id) {
-            // splice new array
+            // splice out note to be deleted at its index
             notes.splice(index, 1);
+
             return res.json(selectedItem);
         }
     })
